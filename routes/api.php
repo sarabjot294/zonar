@@ -34,3 +34,28 @@ Route::post('/books', function(){
         'date_of_publication' => request('date_of_publication'),
     ]);
 });
+
+
+Route::put('/books/{book}', function(Book $book){
+
+    $success = $book->update([
+        'title' => request('title'),
+        'author' => request('author'),
+        'isbn'=> request('isbn'),
+        'date_of_publication' => request('date_of_publication'),
+    ]);
+
+    return [
+        'success' => $success
+    ];
+});
+
+
+Route::delete('/books/{book}', function(Book $book){
+
+    $success = $book->delete();
+    
+    return [
+        'success' => $success
+    ];
+});
