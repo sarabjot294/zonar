@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Book;
+use App\Http\Controllers\BooksApiController;
 
 
 /*
@@ -21,41 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/books', function(){
-    return Book::all();
-});
+Route::get('/books', [BooksApiController::class, 'index']);
 
-Route::post('/books', function(){
+Route::post('/books', [BooksApiController::class, 'store']);
 
-    return Book::create([
-        'title' => request('title'),
-        'author' => request('author'),
-        'isbn'=> request('isbn'),
-        'date_of_publication' => request('date_of_publication'),
-    ]);
-});
+Route::put('/books/{book}', [BooksApiController::class, 'update']);
 
-
-Route::put('/books/{book}', function(Book $book){
-
-    $success = $book->update([
-        'title' => request('title'),
-        'author' => request('author'),
-        'isbn'=> request('isbn'),
-        'date_of_publication' => request('date_of_publication'),
-    ]);
-
-    return [
-        'success' => $success
-    ];
-});
-
-
-Route::delete('/books/{book}', function(Book $book){
-
-    $success = $book->delete();
-    
-    return [
-        'success' => $success
-    ];
-});
+Route::delete('/books/{book}', [BooksApiController::class, 'delete']);
