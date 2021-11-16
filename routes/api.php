@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Book;
 use App\Http\Controllers\BooksApiController;
+use App\Http\Controllers\WishlistApiController;
 
 
 /*
@@ -29,3 +30,11 @@ Route::post('/books', [BooksApiController::class, 'store']);
 Route::put('/books/{book}', [BooksApiController::class, 'update']);
 
 Route::delete('/books/{book}', [BooksApiController::class, 'delete']);
+
+Route::get('/wishlist/{user}', [WishlistApiController::class, 'getUserWishlist']);
+
+Route::post('/wishlist', [WishlistApiController::class, 'store']);
+
+Route::put('/wishlist/{wishlist}', [WishlistApiController::class, 'update']);
+
+Route::delete('/wishlist/{wishlist}', [WishlistApiController::class, 'delete']);
