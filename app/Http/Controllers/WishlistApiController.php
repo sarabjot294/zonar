@@ -22,10 +22,18 @@ class WishlistApiController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        //Checking the user request
         if (!array_key_exists('user_id', $data) || !array_key_exists('book_id', $data))
         {
             return $this->return(false,"check user input");
         }
+
+        //Check if the book already exsists in the user's wishlist
+        $matchThese = ['user_id' => request('user_id'), 'book_id' => request('book_id')];
+        if (Wishlist::where($matchThese)->exists()) {
+            return $this->return(false,"Book already added into the wishlist");            
+        }
+
         try{
             $inserted = Wishlist::create([
                 'user_id' => request('user_id'),
@@ -47,6 +55,13 @@ class WishlistApiController extends Controller
         {
             return $this->return(false,"check user input");
         }
+
+        //Check if the data is already updated or not
+        $matchThese = ['id'=>$wishlist->id,'user_id' => request('user_id'), 'book_id' => request('book_id')];
+        if (Wishlist::where($matchThese)->exists()) {
+            return $this->return(false,"Data already updated into the db");            
+        }
+
         try{
             $success = $wishlist->update([
                 'user_id' => request('user_id'),
