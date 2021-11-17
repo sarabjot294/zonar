@@ -54,7 +54,7 @@ class WishlistTest extends TestCase
             'status' => true        
         ];
 
-        $this->put('http://127.0.0.1:8000/api/wishlist/1',$formData)
+        $this->put('http://127.0.0.1:8000/api/wishlist/2',$formData)
             ->assertStatus(200)
             ->assertJson($response);
     }
