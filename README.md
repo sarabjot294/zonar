@@ -6,7 +6,7 @@ Backend application for Zonar Systems.
 2. Install XAMPP (on windows), [Install composer](https://getcomposer.org/download/)
 3. Install PHP Laravel through composer using the command ```composer global require "laravel/installer=~1.1"```
 4. Run ```php artisan serve``` on the common line
-5. Open [PhpMyAdmin](http://localhost/phpmyadmin) on the browser. Import ```zonar_db``` file found in db folder.
+5. Open [PhpMyAdmin](http://localhost/phpmyadmin) on the browser. Create ```zonar_db``` and Import ```zonar_db.sql``` file found in db folder.
 6. Change db credentials in ```.env``` file
 ```
 DB_CONNECTION=mysql
