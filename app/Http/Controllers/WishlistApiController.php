@@ -19,8 +19,13 @@ class WishlistApiController extends Controller
         return Wishlist::where('user_id', $user->id)->get();
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $data = $request->all();
+        if (!array_key_exists('user_id', $data) || !array_key_exists('book_id', $data))
+        {
+            return $this->return(false,"check user input");
+        }
         try{
             $inserted = Wishlist::create([
                 'user_id' => request('user_id'),
@@ -34,9 +39,14 @@ class WishlistApiController extends Controller
         return $this->return(true);
     }
 
-    public function update(Wishlist $wishlist)
+    public function update(Wishlist $wishlist, Request $request)
     {
-        print_r($wishlist);
+        
+        $data = $request->all();
+        if (!array_key_exists('user_id', $data) || !array_key_exists('book_id', $data))
+        {
+            return $this->return(false,"check user input");
+        }
         try{
             $success = $wishlist->update([
                 'user_id' => request('user_id'),
@@ -46,10 +56,6 @@ class WishlistApiController extends Controller
         catch(\Illuminate\Database\QueryException $e)
         {
             return $this->return(false, $e->getMessage());
-        }
-        catch(\Exception $ex)
-        {
-            return $this->return(false, $ex);
         }
         return $this->return(true);
     }
