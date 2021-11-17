@@ -18,8 +18,8 @@ class WishlistTest extends TestCase
     public function test_success_add_wishlist()
     {
         $formData = [
-            'user_id' => 1,
-            'book_id' => 5
+            'user_id' => 3,
+            'book_id' => 1
         ];
         $response = [
             'status' => true        
@@ -46,15 +46,15 @@ class WishlistTest extends TestCase
     public function test_success_update_wishlist()
     {
         $formData = [
-            'user_id' => 2,
-            'book_id' => 5
+            'user_id' => 1,
+            'book_id' => 2
         ];
         
         $response = [
             'status' => true        
         ];
 
-        $this->put('http://127.0.0.1:8000/api/wishlist/10',$formData)
+        $this->put('http://127.0.0.1:8000/api/wishlist/1',$formData)
             ->assertStatus(200)
             ->assertJson($response);
     }
@@ -65,14 +65,8 @@ class WishlistTest extends TestCase
             'user_id' => 2,
             'book_id' => 7
         ];
-        
-        $response = [
-            'status' => false        
-        ];
-
-        $this->put('http://127.0.0.1:8000/api/wishlist/10',$formData)
-            ->assertStatus(200)
-            ->assertJson($response);
+        $this->put('http://127.0.0.1:8000/api/wishlist/100',$formData)
+            ->assertStatus(404);
     }
 
     public function test_success_delete_wishlist_entry()
@@ -81,19 +75,14 @@ class WishlistTest extends TestCase
             'status' => true        
         ];
 
-        $this->delete('http://127.0.0.1:8000/api/wishlist/11')
+        $this->delete('http://127.0.0.1:8000/api/wishlist/1')
             ->assertStatus(200)
             ->assertJson($response);
     }
 
     public function test_failure_delete_wishlist_entry()
     {   
-        $response = [
-            'status' => false        
-        ];
-
         $this->delete('http://127.0.0.1:8000/api/wishlist/100')
-            ->assertStatus(200)
-            ->assertJson($response);
+            ->assertStatus(404);
     }
 }
